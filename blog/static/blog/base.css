@@ -76,7 +76,17 @@ a:hover {
   color: #499167
 }
 
+#main-content h3 {
+  font-size: 0.8rem;
+  color: #499167
+}
+
+#main-content em {
+  font-size: 0.9rem;
+}
+
 #sidebar h3 {
+  font-size: 1.2rem;
   color: #499167;
 }
 

@@ -9,7 +9,8 @@
 {% for post in latest_posts %}
 <article>
   <h2>{{ post.title }}</h2>
-  <em>{{ post.published|timesince }} ago</em>
+  <h3>Author: {{ post.author.first_name }} {{ post.author.last_name }}</h3>
+  <em> Published {{ post.published|timesince }} ago</em>
   {{ post.content|linebreaks }}
 </article>
 {% endfor %}

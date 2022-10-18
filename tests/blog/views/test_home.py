@@ -4,13 +4,15 @@ Test views for kaysworld
 """
 from model_mommy import mommy
 import pytest
-
 from blog.models import Post
 
 # Needed for database
 pytestmark = pytest.mark.django_db
 
 def test_home(client):
+    """
+    Test home response client
+    """
     response = client.get('/')
     assert response.status_code == 200
 
