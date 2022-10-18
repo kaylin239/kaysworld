@@ -4,6 +4,32 @@ Add Django models
 
 from django.conf import settings  # Imports Django's loaded settings
 from django.db import models # Imports Django's models
+from django.utils import timezone
+from django.contrib.auth import get_user_model
+
+class PostQuerySet(models.QuerySet):
+    """
+    Represents a PostQuerySet
+    """
+    def published(self):
+        """
+        Published
+        """
+        return self.filter(status=self.model.PUBLISHED)
+
+    def drafts(self):
+        """
+        Drafts
+        """
+        return self.filter(status=self.model.DRAFT)
+
+    def get_authors(self):
+        """
+        Get Authors
+        """
+        user = get_user_model()
+        # Get the users who are authors of this queryset
+        return user.objects.filter(blog_posts__in=self).distinct()
 
 class Topic(models.Model):
     """
@@ -16,6 +42,8 @@ class Topic(models.Model):
     )
 
     slug = models.SlugField(unique=True)
+
+    objects = PostQuerySet.as_manager()
 
     def __str__(self):
         return str(self.name)
@@ -37,6 +65,7 @@ class Post(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)  # timestamp set on create
     updated = models.DateTimeField(auto_now=True)  # timestamp updates on each save
+    objects = PostQuerySet.as_manager()
 
     DRAFT = 'draft'
     PUBLISHED = 'published'
@@ -68,6 +97,11 @@ class Post(models.Model):
         Topic,
         related_name='blog_posts',
     )
+
+    def publish(self):
+        """Publishes this post"""
+        self.status = self.PUBLISHED
+        self.published = timezone.now()  # The current datetime with timezone
 
     class Meta:
         """

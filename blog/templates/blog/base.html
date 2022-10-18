@@ -1,0 +1,54 @@
+<!-- blog/templates/blog/base.html -->
+
+{% load static %} <link rel="stylesheet" href="{% static "blog/base.css" %}">
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Kay's World – {% block page_title %}A travel blog{% endblock %}</title>
+</head>
+
+<body>
+  <!-- The header -->
+  <header id="site-header">
+     <h1>Kay's World</h1>
+     <p>A Travel Blog</p>
+  </header>
+
+  <!-- Top navigation -->
+  <nav id="top-nav">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About Me</a></li>
+      <li><a href="#">Posts</a></li>
+      <li><a href="#">Book a Trip!</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+    <div>
+      {% block main %}
+     <!-- Content for the main block will be rendered here -->
+      {% endblock %}
+    </div>
+
+    <aside id="sidebar">
+      <section id="topic-list">
+        <h3>Popular Topics</h3>
+        <ul>
+          {% for topic in topics %}
+            <li>{{ topic.name }} ({{ topic.blog_posts__count }})</li>
+          {% endfor %}
+        </ul>
+      </section>
+    </aside>
+  </main>
+
+  <!-- The footer -->
+  <footer id="site-footer">
+    <!-- Print copyright with the current year -->
+    Copyright Kaylin Haill &copy;{% now 'Y' %}
+  </footer>
+</body>
+</html>
