@@ -19,7 +19,7 @@ body {
  * and unvisited links. Show underline on hover only.
  */
 a {
-  color: #3F4531;
+  color: #499167;
   text-decoration: none;
 }
 
@@ -72,22 +72,74 @@ a:hover {
   grid-template-columns: auto 200px;
 }
 
-#main-content h2 {
-  color: #499167
+#sidebar h3 {
+  font-size: 1.2rem;
+  color: black
 }
 
-#main-content h3 {
-  font-size: 0.8rem;
-  color: #499167
+/* Post preview */
+.post-preview {
+  border-bottom: 1px #eee solid;
 }
 
-#main-content em {
+.post-preview h2 {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  color: #499167;
+}
+
+.post-preview h3 {
+  color: #3F4531;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.post-preview time {
+  color: #5A5A5A;
   font-size: 0.9rem;
 }
 
-#sidebar h3 {
-  font-size: 1.2rem;
+.post-preview section {
+  margin: 1rem 0;
+}
+
+/* Post detail article */
+#post-detail-article h1 {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+#post-detail-article .author {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #555;
+}
+
+#post-detail-article .published {
+  color: #5A5A5A;
+  font-size: 0.9rem;
+}
+
+#post-detail-article .topics {
   color: #499167;
+  font-size: 0.9rem;
+}
+
+#post-detail-article .content {
+  margin: 2rem 0;
+}
+
+/* Topic list */
+
+.topic-list {
+  color: #499167;
+}
+
+/* Topic detail */
+
+#topic-detail-article h4 {
+  color: #5A5A5A;
+  font-size: 0.9rem;
 }
 
 /* Style the footer */

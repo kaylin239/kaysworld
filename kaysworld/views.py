@@ -1,4 +1,3 @@
-# mysite/views.py
 """
 A simple function-based view
 """

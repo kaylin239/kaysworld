@@ -5,6 +5,7 @@ Add Django models
 from django.conf import settings  # Imports Django's loaded settings
 from django.db import models # Imports Django's models
 from django.utils import timezone
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 
 class PostQuerySet(models.QuerySet):
@@ -45,8 +46,18 @@ class Topic(models.Model):
 
     objects = PostQuerySet.as_manager()
 
+    def get_absolute_url(self):
+        """
+        Topic Absolute URL
+        """
+        kwargs = {'pk': self.pk}
+        return reverse('topic-detail', kwargs=kwargs)
+
     def __str__(self):
         return str(self.name)
+
+    class Meta:
+        ordering = ['name']
 
 class Post(models.Model):
     """
@@ -54,7 +65,7 @@ class Post(models.Model):
     """
 
     title = models.CharField(max_length=255) #post title
-    content = models.TextField(null=True) #article's content
+    content = models.TextField() #article's content
 
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,  # The Django auth user model
@@ -103,6 +114,22 @@ class Post(models.Model):
         self.status = self.PUBLISHED
         self.published = timezone.now()  # The current datetime with timezone
 
+    def get_absolute_url(self):
+        """
+        Get Absolute URLs
+        """
+        if self.published:
+            kwargs = {
+                'year': self.published.year,
+                'month': self.published.month,
+                'day': self.published.day,
+                'slug': self.slug
+            }
+        else:
+            kwargs = {'pk': self.pk}
+
+        return reverse('post-detail', kwargs=kwargs)
+
     class Meta:
         """
         Ordering class
@@ -117,9 +144,9 @@ class Comment(models.Model):
     Represents a comment on a blog post
     """
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    name = models.CharField(max_length=100) #commenter's name
-    email = models.EmailField(max_length=255) #commenter's email
-    text = models.TextField(max_length=400) #comment text
+    name = models.CharField(max_length=100, null=False) #commenter's name
+    email = models.EmailField(max_length=255, null=False) #commenter's email
+    text = models.TextField(max_length=400, null=False) #comment text
     created = models.DateTimeField(auto_now_add=True)  # timestamp set on create
     updated = models.DateTimeField(auto_now=True)  # timestamp updates on each save
 
@@ -134,4 +161,4 @@ class Comment(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return str(self.text)
+        return str(self.name)
