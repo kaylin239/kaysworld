@@ -73,8 +73,7 @@ class TopicDetailView(DetailView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        if 'pk' in self.kwargs:
-            return queryset
+        return queryset
 
 def terms_and_conditions(request):
     """

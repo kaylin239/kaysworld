@@ -65,7 +65,7 @@ class Post(models.Model):
     """
 
     title = models.CharField(max_length=255) #post title
-    content = models.TextField() #article's content
+    content = models.TextField(null=True) #article's content
 
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,  # The Django auth user model
