@@ -86,3 +86,38 @@ class TopicAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 admin.site.register(models.Topic, TopicAdmin)
+
+class ContactAdmin(admin.ModelAdmin):
+    """
+    Customize Contact
+    """
+
+    list_display = (
+        'email',
+        'last_name',
+        'first_name',
+        'submitted'
+    )
+
+    search_fields = (
+        'email',
+        'last_name',
+        'first_name',
+    )
+
+    list_filter = (
+        'email',
+        'last_name',
+        'first_name',
+    )
+
+    # Make these fields read-only in the admin
+    readonly_fields = (
+        'first_name',
+        'last_name',
+        'email',
+        'photo',
+        'submitted'
+    )
+
+admin.site.register(models.Contact, ContactAdmin)

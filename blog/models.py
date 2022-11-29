@@ -162,3 +162,26 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+class Contact(models.Model):
+    """
+    Represents a contact for the photo contest
+    """
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    photo = models.ImageField(
+        blank=True,
+        null=True,
+        help_text='An image for the contest'
+    )
+    submitted = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """
+        Meta ordering class
+        """
+        ordering = ['-submitted']
+
+    def __str__(self):
+        return f'{self.submitted}: {self.email}'

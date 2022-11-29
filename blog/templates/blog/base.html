@@ -10,7 +10,15 @@
 </head>
 
 <body>
-  <!-- The header -->
+  {% if messages %}
+  <div class="django-messages">
+    {% for message in messages %}
+    <div{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="wrapper">
   <header id="site-header">
      <h1>Kay's World</h1>
      <p>A Travel Blog</p>
@@ -23,7 +31,7 @@
       <li><a href="{% url "about" %}">About</a></li>
       <li><a href="{% url "post-list" %}">Posts</a></li>
       <li><a href="{% url "topic-list" %}">Topics</a></li>
-      <li><a href="#">Book a Trip!</a></li>
+      <li><a href="{% url "photo-form" %}">Submit a Photo!</a></li>
       <li><a href="#">Contact</a></li>
     </ul>
   </nav>
@@ -65,5 +73,6 @@
     Copyright Kaylin Haill &copy;{% now 'Y' %}
     <a href="{% url "terms-and-conditions" %}">Terms & Conditions</a>
   </footer>
+</div>
 </body>
 </html>
